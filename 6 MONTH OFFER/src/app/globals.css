@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  /* Light-yellow / golden brand scale (replaces the old blues) */
+  --color-brand-50: #fffbea;
+  --color-brand-100: #fff3c4;
+  --color-brand-200: #ffe98a;
+  --color-brand-300: #ffd84d;
+  --color-brand-400: #ffc61a;
+  --color-brand-500: #f5b300;
+  --color-brand-600: #ca8a04;
+  --color-brand-700: #a16207;
+  --color-brand-800: #854d0e;
+  --color-brand-900: #713f12;
+
+  /* Signature gold of the mark */
+  --color-flow: #eab308;
+  --color-flow-soft: #fde047;
+
+  /* Warm ink + light-yellow surfaces */
+  --color-ink: #422006;
+  --color-ink-soft: #75643f;
+  --color-paper: #fffbea;
+  --color-night-950: #181206;
+  --color-night-900: #201808;
+  --color-night-800: #2a2009;
+  --color-night-700: #3b2d0e;
+
+  /* Urgency accent (countdown / scarcity) — burnt orange against yellow */
+  --color-flare-300: #fdba74;
+  --color-flare-400: #fb923c;
+  --color-flare-500: #ea580c;
+  --color-flare-600: #c2410c;
+
+  --shadow-card: 0 1px 2px rgb(66 32 6 / 0.06), 0 12px 32px -12px rgb(66 32 6 / 0.16);
+  --shadow-lift: 0 2px 4px rgb(66 32 6 / 0.08), 0 24px 48px -16px rgb(202 138 4 / 0.3);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-body antialiased dark:bg-night-950 dark:text-stone-100;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-flow-soft);
+  color: #201808;
+}
+
+/* Fine engineering grid used behind hero + offer panel */
+.bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgb(161 98 7 / 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(161 98 7 / 0.09) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.dark .bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgb(253 224 71 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(253 224 71 / 0.06) 1px, transparent 1px);
+}
+
+.mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes cf-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: cf-float 6s ease-in-out infinite; }
+.animate-float-slow { animation: cf-float 8.5s ease-in-out infinite; }
+
+@keyframes cf-pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(234 88 12 / 0.55); }
+  70% { box-shadow: 0 0 0 8px rgb(234 88 12 / 0); }
+}
+.animate-pulse-dot { animation: cf-pulse-dot 1.8s ease-out infinite; }
+
+@keyframes cf-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise { animation: cf-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes cf-tick {
+  from { transform: translateY(-38%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-tick { animation: cf-tick 0.35s ease-out; }
+
+@keyframes cf-kenburns {
+  from { transform: scale(1) translate(0, 0); }
+  to { transform: scale(1.09) translate(1.6%, -1.6%); }
+}
+.animate-kenburns { animation: cf-kenburns 6.5s ease-out both; }
+
+@keyframes cf-sheen {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.text-sheen {
+  background: linear-gradient(100deg, var(--color-brand-600) 20%, #fde047 40%, var(--color-brand-600) 60%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: cf-sheen 5s linear infinite;
+}
+.dark .text-sheen {
+  background: linear-gradient(100deg, var(--color-flow) 20%, #fff7d6 40%, var(--color-flow) 60%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+}
+.dark :focus-visible {
+  outline-color: var(--color-flow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-float, .animate-float-slow, .animate-pulse-dot, .text-sheen, .animate-rise { animation: none; }
+}
